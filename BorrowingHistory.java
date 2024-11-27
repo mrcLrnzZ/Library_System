@@ -1,7 +1,7 @@
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.io.*;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class BorrowingHistory extends JFrame {
     private JFrame parentFrame;
@@ -43,7 +43,7 @@ public class BorrowingHistory extends JFrame {
         titleLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 30));
         titleLabel.setForeground(new Color(0x3B3030));
         titleLabel.setAlignmentX(CENTER_ALIGNMENT);
-        titleLabel.setBorder(BorderFactory.createEmptyBorder(40, 0, 10, 0));
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(40, 0, 10, 10));
         backgroundPanel.add(titleLabel);
 
         // History table

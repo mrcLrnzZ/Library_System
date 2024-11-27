@@ -45,7 +45,7 @@ public class BorrowBooks extends JFrame {
         titleLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 30));
         titleLabel.setForeground(new Color(0x3B3030));
         titleLabel.setAlignmentX(CENTER_ALIGNMENT);
-        titleLabel.setBorder(BorderFactory.createEmptyBorder(40, 0, 10, 0));
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 10));
         backgroundPanel.add(titleLabel);
 
         // Book list
@@ -60,7 +60,7 @@ public class BorrowBooks extends JFrame {
         backgroundPanel.add(scrollPane);
 
         // Borrow button
-        JButton borrowButton = new JButton("Borrow Book");
+        JButton borrowButton = new JButton("Borrow");
         borrowButton.setFont(new Font("SansSerif", Font.BOLD, 23));
         borrowButton.setBackground(new Color(0x603F26));
         borrowButton.setForeground(Color.WHITE);
@@ -94,8 +94,9 @@ public class BorrowBooks extends JFrame {
         horizontalBox.add(backButton);
         horizontalBox.add(Box.createRigidArea(new Dimension(20, 0)));
 
-        backgroundPanel.add(Box.createVerticalStrut(20));
+        backgroundPanel.add(Box.createVerticalStrut(-50));
         backgroundPanel.add(horizontalBox);
+        backgroundPanel.add(Box.createVerticalStrut(20));
 
         // Frame settings
         add(backgroundPanel);

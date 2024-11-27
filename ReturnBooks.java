@@ -41,13 +41,16 @@ public class ReturnBooks extends JFrame {
         backgroundPanel.add(imageLabel);
 
         // Header
-        backgroundPanel.add(Box.createVerticalStrut(-20));
+        backgroundPanel.add(Box.createVerticalStrut(20));
         JLabel titleLabel = new JLabel("RETURN BOOKS");
         titleLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 30));
         titleLabel.setForeground(new Color(0x3B3030));
         titleLabel.setAlignmentX(CENTER_ALIGNMENT);
-        titleLabel.setBorder(BorderFactory.createEmptyBorder(40, 0, 10, 0));
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 10));
         backgroundPanel.add(titleLabel);
+
+        // Add more space after the title
+        backgroundPanel.add(Box.createVerticalStrut(0));
 
         // Borrowed books list
         borrowedBooksModel = new DefaultListModel<>();
@@ -95,8 +98,11 @@ public class ReturnBooks extends JFrame {
         horizontalBox.add(backButton);
         horizontalBox.add(Box.createRigidArea(new Dimension(20, 0)));
 
-        backgroundPanel.add(Box.createVerticalStrut(20));
+        backgroundPanel.add(Box.createVerticalStrut(-50));
         backgroundPanel.add(horizontalBox);
+        backgroundPanel.add(Box.createVerticalStrut(20));
+
+      
 
         // Frame settings
         add(backgroundPanel);
