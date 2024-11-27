@@ -1,8 +1,8 @@
-import javax.swing.*;
 import java.awt.*;
 import java.io.*;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+import javax.swing.*;
 
 public class ReturnBooks extends JFrame {
     private JFrame parentFrame;
@@ -61,7 +61,7 @@ public class ReturnBooks extends JFrame {
         backgroundPanel.add(scrollPane);
 
         // Return button
-        JButton returnButton = new JButton("Return Selected Book");
+        JButton returnButton = new JButton("Return Book");
         returnButton.setFont(new Font("SansSerif", Font.BOLD, 23));
         returnButton.setBackground(new Color(0x603F26));
         returnButton.setForeground(Color.WHITE);
