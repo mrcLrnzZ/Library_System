@@ -60,7 +60,7 @@ public class BorrowBooks extends JFrame {
         backgroundPanel.add(scrollPane);
 
         // Borrow button
-        JButton borrowButton = new JButton("Borrow");
+        JButton borrowButton = new JButton("Borrow this book");
         borrowButton.setFont(new Font("SansSerif", Font.BOLD, 23));
         borrowButton.setBackground(new Color(0x603F26));
         borrowButton.setForeground(Color.WHITE);
