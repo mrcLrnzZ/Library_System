@@ -283,7 +283,14 @@ public class JSwing extends JFrame {
             updatebook.setFocusPainted(false);
             backgroundPanel.add(Box.createVerticalStrut(20));
             backgroundPanel.add(updatebook);
-    
+            updatebook.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    new Updatebook(adminFrame, adminFrame);
+                    adminFrame.setVisible(false);
+                }
+            });
+            
             backgroundPanel.add(Box.createVerticalStrut(-5));
             JButton deletebook = new JButton("Delete Books");
             deletebook.setFont(new Font("SansSerif", Font.BOLD, 23));
@@ -309,7 +316,13 @@ public class JSwing extends JFrame {
             viewbooks.setFocusPainted(false);
             backgroundPanel.add(Box.createVerticalStrut(20));
             backgroundPanel.add(viewbooks);
-    
+            viewbooks.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    new DisplayBooks(adminFrame, adminFrame); 
+                    adminFrame.setVisible(false);          
+                }
+            });
             backgroundPanel.add(Box.createVerticalStrut(-5));
     
             JButton backButton = new JButton("Back");
