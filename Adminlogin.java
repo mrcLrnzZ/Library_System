@@ -1,5 +1,5 @@
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
 public class Adminlogin extends JFrame {
     private final JTextField usernameField;
@@ -99,7 +99,7 @@ public class Adminlogin extends JFrame {
 
         if (username.equals("adminangel") && password.equals("1234") ||
             username.equals("adminkenji") && password.equals("1234") ||
-            username.equals("admingillian") && password.equals("1234")) {
+            username.equals("1") && password.equals("1")) {
             isAuthenticated = true;
             JOptionPane.showMessageDialog(this, "Login Successful");
         } else {
