@@ -276,14 +276,21 @@ public class JSwing extends JFrame {
             updatebook.setFont(new Font("SansSerif", Font.BOLD, 23));
             updatebook.setBackground(new Color(0x603F26));
             updatebook.setForeground(Color.WHITE);
-            updatebook.setAlignmentX(CENTER_ALIGNMENT);
+            updatebook.setAlignmentX(Component.CENTER_ALIGNMENT);
             updatebook.setPreferredSize(new Dimension(250, 50));
             updatebook.setMaximumSize(new Dimension(250, 50));
             updatebook.setBorder(BorderFactory.createEmptyBorder(50, 20, 50, 20));
             updatebook.setFocusPainted(false);
             backgroundPanel.add(Box.createVerticalStrut(20));
             backgroundPanel.add(updatebook);
-    
+            updatebook.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    new Updatebook(adminFrame, adminFrame); 
+                    adminFrame.setVisible(false);          
+                }
+            });
+
             backgroundPanel.add(Box.createVerticalStrut(-5));
             JButton deletebook = new JButton("Delete Books");
             deletebook.setFont(new Font("SansSerif", Font.BOLD, 23));
@@ -296,6 +303,13 @@ public class JSwing extends JFrame {
             deletebook.setFocusPainted(false);
             backgroundPanel.add(Box.createVerticalStrut(20));
             backgroundPanel.add(deletebook);
+            deletebook.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    new DeleteBook(adminFrame, adminFrame); 
+                    adminFrame.setVisible(false);          
+                }
+            });
     
             backgroundPanel.add(Box.createVerticalStrut(-5));
             JButton viewbooks = new JButton("Display all Books");
@@ -309,7 +323,15 @@ public class JSwing extends JFrame {
             viewbooks.setFocusPainted(false);
             backgroundPanel.add(Box.createVerticalStrut(20));
             backgroundPanel.add(viewbooks);
-    
+
+            viewbooks.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    new DisplayBooks(adminFrame, adminFrame); 
+                    adminFrame.setVisible(false);          
+                }
+            });
+
             backgroundPanel.add(Box.createVerticalStrut(-5));
     
             JButton backButton = new JButton("Back");
@@ -400,15 +422,7 @@ public class JSwing extends JFrame {
         backgroundPanel.add(Box.createVerticalStrut(20));
         backgroundPanel.add(borrowBooks);
     
-        borrowBooks.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String currentStudentId = StudentLogin.getCurrentStudentId();
-                new BorrowBooks(studentFrame, currentStudentId);
-                studentFrame.setVisible(false);
-            }
-        });
-    
+       
         JButton returnBooks = new JButton("Return Books");
         returnBooks.setFont(new Font("SansSerif", Font.BOLD, 23));
         returnBooks.setBackground(new Color(0x603F26));
@@ -421,15 +435,7 @@ public class JSwing extends JFrame {
         backgroundPanel.add(Box.createVerticalStrut(20));
         backgroundPanel.add(returnBooks);
     
-        returnBooks.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String currentStudentId = StudentLogin.getCurrentStudentId();
-                new ReturnBooks(studentFrame, currentStudentId);
-                studentFrame.setVisible(false);
-            }
-        });
-    
+        
         JButton historyButton = new JButton("History");
         historyButton.setFont(new Font("SansSerif", Font.BOLD, 23));
         historyButton.setBackground(new Color(0x603F26));
@@ -442,15 +448,7 @@ public class JSwing extends JFrame {
         backgroundPanel.add(Box.createVerticalStrut(20));
         backgroundPanel.add(historyButton);
     
-        historyButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String currentStudentId = StudentLogin.getCurrentStudentId();
-                new BorrowingHistory(studentFrame, currentStudentId);
-                studentFrame.setVisible(false);
-            }
-        });
-    
+       
         JButton backButton = new JButton("Back");
         backButton.setFont(new Font("SansSerif", Font.BOLD, 18));
         backButton.setBackground(new Color(0x603F26));

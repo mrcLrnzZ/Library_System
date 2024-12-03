@@ -2,22 +2,14 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
-public class Createbook {
+ class Createbook {
     private JFrame frame;
     private JTextField bookNumberField, bookTitleField, bookAuthorField;
-    private static List<Book> books = new ArrayList<>();
-    private static final String BOOKS_FILE = "books.txt";
-    private DefaultListModel<Book> bookListModel;
 
     public Createbook(JFrame parentFrame, JFrame adminFrame) {
         frame = new JFrame("Create Book");
         frame.setIconImage(new ImageIcon("White and Blue Illustrative Class Logo-modified.png").getImage());
-
-        // Load existing books when creating the window
-        loadBooksFromFile();
 
         JPanel panel = new JPanel() {
             @Override
@@ -29,98 +21,84 @@ public class Createbook {
         };
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        // Header
         JLabel headerLabel = new JLabel("Create New Book");
         headerLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 30));
         headerLabel.setForeground(new Color(0x3B3030));
-        headerLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        headerLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
         headerLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));
         panel.add(headerLabel);
 
-        // Input Panel
-        JPanel inputPanel = new JPanel();
-        inputPanel.setLayout(new GridLayout(3, 2, 10, 10));
-        inputPanel.setOpaque(false);
-        inputPanel.setMaximumSize(new Dimension(400, 120));
-
+        JLabel bookNumberLabel = new JLabel("Book Number");
+        bookNumberLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        panel.add(bookNumberLabel);
         bookNumberField = new JTextField();
+        panel.add(bookNumberField);
+
+        JLabel bookTitleLabel = new JLabel("Book Title");
+        bookTitleLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        panel.add(bookTitleLabel);
         bookTitleField = new JTextField();
+        panel.add(bookTitleField);
+
+        JLabel bookAuthorLabel = new JLabel("Book Author");
+        bookAuthorLabel.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        panel.add(bookAuthorLabel);
         bookAuthorField = new JTextField();
+        panel.add(bookAuthorField);
 
-        inputPanel.add(new JLabel("Book Number:"));
-        inputPanel.add(bookNumberField);
-        inputPanel.add(new JLabel("Book Title:"));
-        inputPanel.add(bookTitleField);
-        inputPanel.add(new JLabel("Book Author:"));
-        inputPanel.add(bookAuthorField);
-
-        panel.add(inputPanel);
-        panel.add(Box.createVerticalStrut(20));
-
-        // Submit Button
         JButton submitButton = new JButton("Submit");
         submitButton.setFont(new Font("SansSerif", Font.BOLD, 20));
         submitButton.setBackground(new Color(0x603F26));
         submitButton.setForeground(Color.WHITE);
-        submitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        submitButton.setMaximumSize(new Dimension(200, 40));
-        
+        submitButton.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+        panel.add(submitButton);
+
         submitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                String bookNumber = bookNumberField.getText().trim();
-                String bookTitle = bookTitleField.getText().trim();
-                String bookAuthor = bookAuthorField.getText().trim();
+                String bookNumber = bookNumberField.getText();
+                String bookTitle = bookTitleField.getText();
+                String bookAuthor = bookAuthorField.getText();
 
                 if (bookNumber.isEmpty() || bookTitle.isEmpty() || bookAuthor.isEmpty()) {
                     JOptionPane.showMessageDialog(frame, "All fields must be filled!");
                     return;
                 }
-
-                // Check for duplicate ISBN
-                if (isIsbnExists(bookNumber)) {
-                    JOptionPane.showMessageDialog(frame, 
-                        "A book with this number already exists!", 
-                        "Error", 
-                        JOptionPane.ERROR_MESSAGE);
+                if (isDuplicateBookNumber(bookNumber)) {
+                 JOptionPane.showMessageDialog(frame, "The book number already exists! Please use a different book number.");
                     return;
                 }
-
                 saveBookDetails(bookNumber, bookTitle, bookAuthor);
-                clearFields();
                 JOptionPane.showMessageDialog(frame, "Book created successfully!");
+                frame.dispose();
+               
             }
         });
 
-        panel.add(submitButton);
-        panel.add(Box.createVerticalStrut(20));
-
-        // Book List
-        bookListModel = new DefaultListModel<>();
-        updateBookList();
-        JList<Book> bookList = new JList<>(bookListModel);
-        JScrollPane scrollPane = new JScrollPane(bookList);
-        scrollPane.setPreferredSize(new Dimension(400, 200));
-        scrollPane.setMaximumSize(new Dimension(400, 200));
-        panel.add(new JLabel("Existing Books:"));
-        panel.add(scrollPane);
-        panel.add(Box.createVerticalStrut(20));
-
-        // Back Button
         JButton backButton = new JButton("Back");
         backButton.setFont(new Font("SansSerif", Font.BOLD, 18));
         backButton.setBackground(new Color(0x603F26));
         backButton.setForeground(Color.WHITE);
+        backButton.setPreferredSize(new Dimension(100, 40));
         backButton.setMaximumSize(new Dimension(100, 40));
-        backButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+        backButton.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        backButton.setFocusPainted(false);
 
-        backButton.addActionListener(e -> {
-            frame.dispose();
-            adminFrame.setVisible(true);
+        backButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                frame.dispose();
+                adminFrame.setVisible(true); 
+            }
         });
 
-        panel.add(backButton);
-        panel.add(Box.createVerticalStrut(20));
+        Box horizontalBox = Box.createHorizontalBox();
+        horizontalBox.add(Box.createHorizontalGlue());
+        horizontalBox.add(Box.createRigidArea(new Dimension(10, 0)));
+        horizontalBox.add(backButton);
+        horizontalBox.add(Box.createRigidArea(new Dimension(20, 0)));
+
+        panel.add(horizontalBox);
 
         frame.add(panel);
         frame.setSize(600, 500);
@@ -131,100 +109,31 @@ public class Createbook {
     }
 
     private void saveBookDetails(String bookNumber, String bookTitle, String bookAuthor) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(BOOKS_FILE, true))) {
-            // Save to file
-            writer.write(bookNumber + "," + bookTitle + "," + bookAuthor + ",available");
+        
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("books.txt", true))) {
+            writer.write(bookNumber + "," + bookTitle + "," + bookAuthor);
             writer.newLine();
-            
-            // Add to in-memory list
-            Book newBook = new Book(bookTitle, bookAuthor, bookNumber);
-            books.add(newBook);
-            
         } catch (IOException e) {
             JOptionPane.showMessageDialog(frame, "Error saving book details: " + e.getMessage());
         }
+        
     }
 
-    public static List<Book> getAllBooks() {
-        if (books.isEmpty()) {
-            loadBooksFromFile();
-        }
-        return new ArrayList<>(books);
-    }
 
-    private static void loadBooksFromFile() {
-        try (BufferedReader reader = new BufferedReader(new FileReader(BOOKS_FILE))) {
+    private boolean isDuplicateBookNumber(String bookNumber) {
+        try (BufferedReader reader = new BufferedReader(new FileReader("books.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");
-                if (parts.length >= 4) {
-                    Book book = new Book(parts[1], parts[2], parts[0]);
-                    if (parts[3].equals("borrowed")) {
-                        book.setAvailable(false);
-                    }
-                    books.add(book);
+                String[] details = line.split(",", 3); 
+                if (details[0].equals(bookNumber)) {
+                    return true; 
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            JOptionPane.showMessageDialog(frame, "Error reading file: " + e.getMessage());
         }
+        return false; 
     }
-
-    public static void updateBookStatus(String isbn, boolean isAvailable) {
-        // Update in memory
-        for (Book book : books) {
-            if (book.getIsbn().equals(isbn)) {
-                book.setAvailable(isAvailable);
-                break;
-            }
-        }
-
-        // Update in file
-        List<String> lines = new ArrayList<>();
-        try (BufferedReader reader = new BufferedReader(new FileReader(BOOKS_FILE))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");
-                if (parts[0].equals(isbn)) {
-                    lines.add(parts[0] + "," + parts[1] + "," + parts[2] + "," + 
-                             (isAvailable ? "available" : "borrowed"));
-                } else {
-                    lines.add(line);
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(BOOKS_FILE))) {
-            for (String line : lines) {
-                writer.write(line);
-                writer.newLine();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void clearFields() {
-        bookNumberField.setText("");
-        bookTitleField.setText("");
-        bookAuthorField.setText("");
-    }
-
-    private boolean isIsbnExists(String isbn) {
-        for (Book book : books) {
-            if (book.getIsbn().equals(isbn)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private void updateBookList() {
-        bookListModel.clear();
-        for (Book book : books) {
-            bookListModel.addElement(book);
-        }
-    }
+    
 }
