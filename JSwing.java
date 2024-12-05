@@ -303,7 +303,14 @@ public class JSwing extends JFrame {
             deletebook.setFocusPainted(false);
             backgroundPanel.add(Box.createVerticalStrut(20));
             backgroundPanel.add(deletebook);
-    
+            deletebook.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    new DeleteBook(adminFrame, adminFrame); 
+                    adminFrame.setVisible(false);         
+                }
+            });
+            
             backgroundPanel.add(Box.createVerticalStrut(-5));
             JButton viewbooks = new JButton("Display all Books");
             viewbooks.setFont(new Font("SansSerif", Font.BOLD, 23));
