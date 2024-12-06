@@ -16,7 +16,6 @@ public class Createbook {
         frame = new JFrame("Create Book");
         frame.setIconImage(new ImageIcon("White and Blue Illustrative Class Logo-modified.png").getImage());
 
-        // Load existing books when creating the window
         loadBooksFromFile();
 
         JPanel panel = new JPanel() {
@@ -29,7 +28,7 @@ public class Createbook {
         };
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-        // Header
+       
         JLabel headerLabel = new JLabel("Create New Book");
         headerLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 30));
         headerLabel.setForeground(new Color(0x3B3030));
@@ -37,7 +36,7 @@ public class Createbook {
         headerLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 0));
         panel.add(headerLabel);
 
-        // Input Panel
+   
         JPanel inputPanel = new JPanel();
         inputPanel.setLayout(new GridLayout(3, 2, 10, 10));
         inputPanel.setOpaque(false);
@@ -57,7 +56,7 @@ public class Createbook {
         panel.add(inputPanel);
         panel.add(Box.createVerticalStrut(20));
 
-        // Submit Button
+   
         JButton submitButton = new JButton("Submit");
         submitButton.setFont(new Font("SansSerif", Font.BOLD, 20));
         submitButton.setBackground(new Color(0x603F26));
@@ -77,7 +76,7 @@ public class Createbook {
                     return;
                 }
 
-                // Check for duplicate ISBN
+          
                 if (isIsbnExists(bookNumber)) {
                     JOptionPane.showMessageDialog(frame, 
                         "A book with this number already exists!", 
@@ -95,7 +94,7 @@ public class Createbook {
         panel.add(submitButton);
         panel.add(Box.createVerticalStrut(20));
 
-        // Book List
+     
         bookListModel = new DefaultListModel<>();
         updateBookList();
         JList<Book> bookList = new JList<>(bookListModel);
@@ -106,7 +105,7 @@ public class Createbook {
         panel.add(scrollPane);
         panel.add(Box.createVerticalStrut(20));
 
-        // Back Button
+
         JButton backButton = new JButton("Back");
         backButton.setFont(new Font("SansSerif", Font.BOLD, 18));
         backButton.setBackground(new Color(0x603F26));
@@ -132,11 +131,11 @@ public class Createbook {
 
     private void saveBookDetails(String bookNumber, String bookTitle, String bookAuthor) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(BOOKS_FILE, true))) {
-            // Save to file
+          
             writer.write(bookNumber + "," + bookTitle + "," + bookAuthor + ",available");
             writer.newLine();
             
-            // Add to in-memory list
+      
             Book newBook = new Book(bookTitle, bookAuthor, bookNumber);
             books.add(newBook);
             
@@ -171,7 +170,7 @@ public class Createbook {
     }
 
     public static void updateBookStatus(String isbn, boolean isAvailable) {
-        // Update in memory
+    
         for (Book book : books) {
             if (book.getIsbn().equals(isbn)) {
                 book.setAvailable(isAvailable);
@@ -179,7 +178,7 @@ public class Createbook {
             }
         }
 
-        // Update in file
+
         List<String> lines = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(BOOKS_FILE))) {
             String line;

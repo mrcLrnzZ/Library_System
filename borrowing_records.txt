@@ -5,6 +5,3 @@
 1,ulala,20230519-S,2024-11-27 15:25,2024-11-27 15:25,Returned
 2,The tale of Kenji sindikato,20230859-S,2024-11-27 16:34,2024-11-27 16:34,Returned
 1,ulala,20230859-S,2024-11-27 16:34,2024-11-27 16:34,Returned
-1,ulala,1,2024-11-28 15:54,2024-11-28 15:54,Returned
-1,ulala,1,2024-12-04 07:55,-,Borrowed
-4,ulala by nigga,1,2024-12-04 07:55,-,Borrowed

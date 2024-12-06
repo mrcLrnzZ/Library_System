@@ -15,7 +15,7 @@ public class BorrowBooks extends JFrame {
         this.studentId = studentId;
         setTitle("ULMS - Borrow Books");
 
-        // Set up background
+        
         ImageIcon background = new ImageIcon("bgpictttt.png");
         Image backgroundImage = background.getImage();
 
@@ -28,7 +28,7 @@ public class BorrowBooks extends JFrame {
         };
         backgroundPanel.setLayout(new BoxLayout(backgroundPanel, BoxLayout.Y_AXIS));
 
-        // Logo
+        
         backgroundPanel.add(Box.createVerticalStrut(10));
         ImageIcon frontbg = new ImageIcon("White and Blue Illustrative Class Logo-modified.png");
         JLabel imageLabel = new JLabel(frontbg);
@@ -39,7 +39,7 @@ public class BorrowBooks extends JFrame {
         imageLabel.setAlignmentX(CENTER_ALIGNMENT);
         backgroundPanel.add(imageLabel);
 
-        // Header
+    
         backgroundPanel.add(Box.createVerticalStrut(-20));
         JLabel titleLabel = new JLabel("BORROW BOOKS");
         titleLabel.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 30));
@@ -48,7 +48,7 @@ public class BorrowBooks extends JFrame {
         titleLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 10, 10));
         backgroundPanel.add(titleLabel);
 
-        // Book list
+        
         bookListModel = new DefaultListModel<>();
         loadAvailableBooks();
         bookList = new JList<>(bookListModel);
@@ -59,7 +59,7 @@ public class BorrowBooks extends JFrame {
         backgroundPanel.add(Box.createVerticalStrut(20));
         backgroundPanel.add(scrollPane);
 
-        // Borrow button
+        
         JButton borrowButton = new JButton("Borrow book");
         borrowButton.setFont(new Font("SansSerif", Font.BOLD, 23));
         borrowButton.setBackground(new Color(0x603F26));
@@ -73,7 +73,7 @@ public class BorrowBooks extends JFrame {
         backgroundPanel.add(borrowButton);
         borrowButton.addActionListener(e -> borrowSelectedBook());
 
-        // Back button
+        
         JButton backButton = new JButton("Back");
         backButton.setFont(new Font("SansSerif", Font.BOLD, 18));
         backButton.setBackground(new Color(0x603F26));
@@ -87,7 +87,6 @@ public class BorrowBooks extends JFrame {
             parentFrame.setVisible(true);
         });
 
-        // Create horizontal box for back button
         Box horizontalBox = Box.createHorizontalBox();
         horizontalBox.add(Box.createHorizontalGlue());
         horizontalBox.add(Box.createRigidArea(new Dimension(10, 0)));
@@ -98,7 +97,7 @@ public class BorrowBooks extends JFrame {
         backgroundPanel.add(horizontalBox);
         backgroundPanel.add(Box.createVerticalStrut(20));
 
-        // Frame settings
+     
         add(backgroundPanel);
         setSize(720, 620);
         setResizable(false);
