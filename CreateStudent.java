@@ -10,15 +10,15 @@ public class CreateStudent extends JFrame {
     private JTextField numberField;
     private JPasswordField passwordField;
 
-    public CreateStudent(JFrame adminFrame, List<Student> students) {
+    CreateStudent(JFrame studmanageFrame, List<Student> students) {
         setTitle("ULMS ADMIN: Create Student");
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setSize(350, 250);
-        setLocationRelativeTo(adminFrame);
+        setLocationRelativeTo(studmanageFrame);
         setResizable(false);
 
-        ImageIcon logo = new ImageIcon(getClass().getResource("/White and Blue Illustrative Class Logo-modified.png"));
-        setIconImage(logo.getImage());
+        ImageIcon logo = new ImageIcon("White and Blue Illustrative Class Logo-modified.png");
+        studmanageFrame.setIconImage(logo.getImage());
 
         JPanel contentPanel = new JPanel();
         contentPanel.setLayout(new BorderLayout());
@@ -84,9 +84,10 @@ public class CreateStudent extends JFrame {
                     Student newStudent = new Student(name, studentNumber, password);
                     students.add(newStudent);
                     saveStudentToFile(newStudent);
+
                     JOptionPane.showMessageDialog(CreateStudent.this, "Student created successfully!");
                     dispose();
-                    adminFrame.setVisible(true);
+                    studmanageFrame.setVisible(true); 
                 }
             }
         });
@@ -95,7 +96,7 @@ public class CreateStudent extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                adminFrame.setVisible(true);
+                studmanageFrame.setVisible(true); 
             }
         });
 

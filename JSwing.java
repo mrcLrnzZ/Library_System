@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 
 public class JSwing extends JFrame {
     private JFrame mainmenuFrame; 
-    private static java.util.List<Student> students = new java.util.ArrayList<>();
+
 
 
     JSwing() {
@@ -162,8 +162,6 @@ public class JSwing extends JFrame {
                     public void windowClosed(java.awt.event.WindowEvent windowEvent) {
                         if (studentLoginFrame.isAuthenticated()) {
                             Studentmenu();
-                        } else {
-                            new JSwing(); 
                         }
                     }
                 });
@@ -190,6 +188,8 @@ public class JSwing extends JFrame {
         mainmenuFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainmenuFrame.setVisible(true);
     }
+
+    //ADMIN MENU
         public void AdminMenu() {
 
             JFrame adminFrame = new JFrame("ULMS");
@@ -220,31 +220,31 @@ public class JSwing extends JFrame {
             backgroundPanel.add(imageLabel);
             
             backgroundPanel.add(Box.createVerticalStrut(-20));
-            JLabel Studportal = new JLabel("ADMIN PORTAL ");
-            Studportal.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 30));
-            Studportal.setForeground(new Color(0x3B3030));
-            Studportal.setAlignmentX(CENTER_ALIGNMENT);
-            Studportal.setBorder(BorderFactory.createEmptyBorder(40, 0, 10, 0));
-            backgroundPanel.add(Studportal);
+            JLabel adminportal = new JLabel("ADMIN PORTAL ");
+            adminportal.setFont(new Font("Tahoma", Font.BOLD | Font.ITALIC, 30));
+            adminportal.setForeground(new Color(0x3B3030));
+            adminportal.setAlignmentX(CENTER_ALIGNMENT);
+            adminportal.setBorder(BorderFactory.createEmptyBorder(40, 0, 10, 0));
+            backgroundPanel.add(adminportal);
     
             backgroundPanel.add(Box.createVerticalStrut(-10));
-            JButton createstud = new JButton("Create Student");
-            createstud.setFont(new Font("SansSerif", Font.BOLD, 23));
-            createstud.setBackground(new Color(0x603F26));
-            createstud.setForeground(Color.WHITE);
-            createstud.setAlignmentX(CENTER_ALIGNMENT);
-            createstud.setPreferredSize(new Dimension(250, 50));
-            createstud.setMaximumSize(new Dimension(250, 50));
-            createstud.setBorder(BorderFactory.createEmptyBorder(50, 20, 50, 20));
-            createstud.setFocusPainted(false);
+            JButton StudentMange = new JButton("Student Management");
+            StudentMange.setFont(new Font("SansSerif", Font.BOLD, 23));
+            StudentMange.setBackground(new Color(0x603F26));
+            StudentMange.setForeground(Color.WHITE);
+            StudentMange.setAlignmentX(CENTER_ALIGNMENT);
+            StudentMange.setPreferredSize(new Dimension(300, 50));
+            StudentMange.setMaximumSize(new Dimension(300, 50));
+            StudentMange.setBorder(BorderFactory.createEmptyBorder(50, 20, 50, 20));
+            StudentMange.setFocusPainted(false);
             backgroundPanel.add(Box.createVerticalStrut(20));
-            backgroundPanel.add(createstud);
+            backgroundPanel.add(StudentMange);
             
-            createstud.addActionListener(new ActionListener() {
+            StudentMange.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                 
-                    new CreateStudent(adminFrame, students);
+                    StudentManagement studmange = new StudentManagement(adminFrame);
+                    studmange.show();
                     adminFrame.setVisible(false); 
                 }
             });
@@ -303,14 +303,7 @@ public class JSwing extends JFrame {
             deletebook.setFocusPainted(false);
             backgroundPanel.add(Box.createVerticalStrut(20));
             backgroundPanel.add(deletebook);
-            deletebook.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    new DeleteBook(adminFrame, adminFrame); 
-                    adminFrame.setVisible(false);         
-                }
-            });
-            
+    
             backgroundPanel.add(Box.createVerticalStrut(-5));
             JButton viewbooks = new JButton("Display all Books");
             viewbooks.setFont(new Font("SansSerif", Font.BOLD, 23));
@@ -370,6 +363,7 @@ public class JSwing extends JFrame {
         
     
     }
+    //STUDENT MENU
     public void Studentmenu() {
         JFrame studentFrame = new JFrame("ULMS");
     
